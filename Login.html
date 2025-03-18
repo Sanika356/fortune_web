@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loginform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* Body styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, skyblue, #feb47b);
+            color: #333;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Form container */
+        .form-container {
+            background-color: rgb(117, 222, 253);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ff7e5f;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Input styling */
+        .form-control {
+            border: 2px solid #ff7e5f;
+            border-radius: 8px;
+            padding: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: #feb47b;
+            box-shadow: 0 0 8px rgba(255, 126, 95, 0.5);
+        }
+
+        /* Button container to align buttons side by side */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* Back button styling */
+        .btn-back {
+            background-color: #dc3545;
+            color: white;
+            padding: 12px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            width: 48%; /* Ensure buttons are equally sized */
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(220, 53, 69, 0.5);
+        }
+
+        /* Submit button styling */
+        .btn-custom {
+            background-color: #ff7e5f;
+            color: white;
+            padding: 12px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: bold;
+            width: 48%; /* Ensure buttons are equally sized */
+            text-align: center;
+        }
+
+        .btn-custom:hover {
+            background-color: #feb47b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(255, 126, 95, 0.5);
+        }
+
+        /* Error messages */
+        .text-danger {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+  
+    <section>
+        <form id="loginform" class="form-container" onsubmit="return validate()">
+            <h1>Login</h1>
+            <div class="mb-3">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
+                <span class="text-danger" id="nameError"></span>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
+                <span class="text-danger" id="passwordError"></span>
+            </div>
+
+            <!-- Button container for side-by-side alignment -->
+            <div class="button-container">
+                <button type="button" class="btn-back" onclick="goBack()">Back</button>
+                <button type="submit" class="btn-custom">Submit</button>
+            </div>
+        </form>
+    </section>
+
+    <script>
+        function validate() {
+            // Get form values
+            const name = document.getElementById("name").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            // Error spans
+            const nameError = document.getElementById("nameError");
+            const passwordError = document.getElementById("passwordError");
+
+            // Clear previous error messages
+            nameError.textContent = "";
+            passwordError.textContent = "";
+
+            let isValid = true;
+
+            // Name validation
+            if (name === "") {
+                nameError.textContent = "Please enter your name";
+                isValid = false;
+            } else if (name.length <= 2) {
+                nameError.textContent = "Name must be more than 2 characters";
+                isValid = false;
+            }
+
+            // Password validation
+            if (password === "") {
+                passwordError.textContent = "Please enter your password";
+                isValid = false;
+            } else if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password)) {
+                passwordError.textContent = "Password must be at least 8 characters with uppercase, lowercase, and number";
+                isValid = false;
+            }
+
+            if (isValid) {
+                alert("Submitted Successfully!");
+            }
+
+            return isValid;
+        }
+
+        // Go back function
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
